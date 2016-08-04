@@ -1,0 +1,70 @@
+
+
+    "use strict";
+var http = require("http");
+const url = require("url");
+
+
+	let  	routes = {
+		"GET" : {
+			"/" : (request, response) => {
+				response.writeHead(200, {'Content-Type': 'text/html'});    	
+   				response.end('Hello World from route\n');
+			},
+			"/members" : (request, response) => {
+				response.writeHead(200, {'Content-Type' : 'text/html'});
+				response.end('this is about API');
+			},
+			'/api/getinfo' : (request, response) => {
+				response.writeHead(200, {'Content-Type' : 'application/json'});
+				response.end(JSON.stringify(request.queryParams));
+			}	
+		},
+
+		'POST' : {
+			'/api/login' : (request, response) => {
+				let body = '';
+				request.on('data', data =>{
+					body+=data;
+				});
+
+				request.on('end', () => {
+					console.log(body);
+					response.end();
+				});
+			}
+
+		},
+
+		'NA' : (request, response) => {
+			response.writeHead(404);
+			response.end("Not Found")
+		}
+	}
+
+function Route(request, response) {
+	let baseURI = url.parse(request.url, true);
+	let resolveRoute = routes[request.method][baseURI.pathname];
+	if (resolveRoute != undefined) {
+		request.queryParams = baseURI.query;
+		resolveRoute(request, response);
+	}
+	else {
+		routes['NA'] (request, response)
+	}
+
+	console.log("Requested Route : ", baseURI );
+	console.log("Requested Method : ", request.method );
+   // Send the HTTP header 
+   // HTTP Status: 200 : OK
+   // Content Type: text/plain
+   // response.writeHead(200, {'Content-Type': 'text/html'});    	
+   // response.end('Hello World\n');
+}
+
+http.createServer(Route).listen(8081, () => {
+	// Console will print the message
+	console.log('Server running at http://127.0.0.1:8081/')
+
+});
+
