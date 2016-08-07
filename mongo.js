@@ -4,4 +4,4 @@ var TodoSchema = new mongoose.Schema({
   email: String,
   phone: String
 });
-module.exports = mongoose.model('Todo', TodoSchema);
+module.exports = mongoose.model('jobs', TodoSchema);

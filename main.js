@@ -4,7 +4,7 @@ var router = require('./routes');
 var jobs = require('./jobs');
 
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/test', function(err) {
+mongoose.connect('mongodb://localhost/alumni', function(err) {
     if(err) 
 {        console.log('connection error', err);
     } else {
