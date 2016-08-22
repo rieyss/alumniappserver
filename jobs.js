@@ -32,5 +32,24 @@ router.get('/detail/:id', function(req, res, next) {
   });
 
 });
+router.post('/post', function(req, res, next){
+  console.log('querry',req.query);
+  console.log('name',req.query.name);
+  console.log('name',req.query.kahani);
+  console.log('name',req.query.email);
+  console.log('name',req.query.web);
+  var post = new JobList({
+    name: req.query.name,
+    kahani: req.query.kahani,
+    email: req.query.email,
+    web: req.query.web
+  })
+  post.save(function (err, post) {
+   if (err) { return next(err) }
+   res.json(201, post)
+ })
+
+});
+
 
 module.exports = router;

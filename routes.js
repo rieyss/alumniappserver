@@ -14,7 +14,7 @@ router.get('/', function(req, res) {
 router.get('/about', function(req, res) {
   res.send('About birds');
 });
- 
+
 console.log(JSON.stringify(router));
 
 module.exports = router;
