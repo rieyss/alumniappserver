@@ -32,6 +32,7 @@ router.get('/detail/:id', function(req, res, next) {
   });
 
 });
+
 router.post('/post', function(req, res, next){
   console.log('querry',req.query);
   console.log('name',req.query.name);
@@ -41,12 +42,14 @@ router.post('/post', function(req, res, next){
   var post = new JobList({
     name: req.query.name,
     kahani: req.query.kahani,
-    email: req.query.email,
-    web: req.query.web
+    location : req.query.location,
+    role : req.query.role,
+    contactemail: req.query.email,
+    contactweb: req.query.web
   })
   post.save(function (err, post) {
    if (err) { return next(err) }
-   res.json(201, post)
+   res.status(201).json(post)
  })
 
 });
