@@ -23,7 +23,7 @@ router.get('/detail/:id', function(req, res, next) {
 // console.log('request',req.params.id);
 // console.log('request id',req.id);
 	// Query from db
-  JobList.findById(req.params.id,{_id:0, kahani:1, contactweb:1 , contactemail:1 },function (err, todos) {
+  JobList.findById(req.params.id,{_id:0, kahani:1, contactweb:1 , contactemail:1, postedby:1, postedbyid:1 },function (err, todos) {
     if (err) return next(err);
 
     // returning in json format
@@ -35,21 +35,21 @@ router.get('/detail/:id', function(req, res, next) {
 
 router.post('/post', function(req, res, next){
   console.log('querry',req.query);
-  console.log('name',req.query.name);
-  console.log('name',req.query.kahani);
-  console.log('name',req.query.email);
-  console.log('name',req.query.web);
+
   var post = new JobList({
     name: req.query.name,
     kahani: req.query.kahani,
     location : req.query.location,
     role : req.query.role,
     contactemail: req.query.email,
-    contactweb: req.query.web
+    contactweb: req.query.web,
+    postedby: req.query.postedby,
+    postedbyid: req.query.postedbyid,
+    type: req.query.type
   })
   post.save(function (err, post) {
    if (err) { return next(err) }
-   res.status(201).json(post)
+   res.status(201).json(true);
  })
 
 });

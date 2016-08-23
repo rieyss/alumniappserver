@@ -5,6 +5,9 @@ var JobListSchema = new mongoose.Schema({
   location: String,
   role : String,
   contactemail: String,
-  contactweb: String
+  contactweb: String,
+  type : String,
+  postedby : String,
+  postedbyid : String
 });
 module.exports = mongoose.model('jobs', JobListSchema);
