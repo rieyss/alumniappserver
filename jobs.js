@@ -41,8 +41,8 @@ router.post('/post', function(req, res, next){
     kahani: req.query.kahani,
     location : req.query.location,
     role : req.query.role,
-    contactemail: req.query.email,
-    contactweb: req.query.web,
+    contactemail: req.query.contactemail,
+    contactweb: req.query.contactweb,
     postedby: req.query.postedby,
     postedbyid: req.query.postedbyid,
     type: req.query.type
