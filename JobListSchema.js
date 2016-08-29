@@ -10,6 +10,8 @@ var JobListSchema = new mongoose.Schema({
   type : String,
   postedby : String,
   postedbyid : String
+},{
+    versionKey: false // You should be aware of the outcome after set to false
 });
 
 module.exports = mongoose.model('jobs', JobListSchema);
