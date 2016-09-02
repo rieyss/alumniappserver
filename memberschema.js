@@ -5,7 +5,9 @@ var signupschemapartial = new mongoose.Schema({
   email : String,
   password : String,
   phone :  String,
-  weblink : String
+  weblink : String,
+  home : String,
+  work : String
 },{
     versionKey: false // You should be aware of the outcome after set to false
 });
