@@ -1,11 +1,15 @@
 var mongoose  = require('mongoose');
 
 var signupschemapartial = new mongoose.Schema({
+  imagepath : String,
   name :  String,
   email : String,
   password : String,
+  bio : String,
   phone :  String,
   weblink : String,
+  branch : String,
+  year : String,
   home : String,
   work : String
 },{

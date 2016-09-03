@@ -37,8 +37,13 @@ router.post('/signup/complete', function(req, res, next) {
 
   var memberschema = new signupschema({
     _id : req.query._id,
+    bio : req.query.bio,
     phone : req.query.phone,
-    weblink : req.query.weblink
+    weblink : req.query.weblink,
+    branch : req.query.branch,
+    year : req.query.year,
+    home : req.query.home,
+    work : req.query.work
     },{
      versionKey: false // You should be aware of the outcome after set to false
   });
@@ -47,10 +52,10 @@ router.post('/signup/complete', function(req, res, next) {
 
   signupschema.findByIdAndUpdate(id, memberschema, function(err, post){
     if (err) { return next(err)}
-      res.send(memberschema);
+      res.status(201).json(true);
   }) ; // returns Query
 
-  
+  console.log(req.query)
 
 }); // end of router
 
