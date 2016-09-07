@@ -81,7 +81,24 @@ router.get('/', function(req, res, next){
 
 router.post('/login', function(req, res, next) {
   console.log(req.query);
-  res.json(true);
+  
+  signupschema.findOne({email:req.query.email},{_id:1, password:1, name:1},function(err, todos){
+  
+  console.log(todos);
+  if (todos==null) {
+    res.status(600).json("email not found").end();    
+  }
+  else if(todos!=null){
+    if (todos.password==req.query.password) {
+    // if (true) {
+    res.json(todos).end();    
+    }
+    else {
+      res.status(700).json("not matched").end();    
+    }   
+  }
+  
+  });
 
 });
 
