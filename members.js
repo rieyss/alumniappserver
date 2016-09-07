@@ -86,14 +86,18 @@ router.post('/login', function(req, res, next) {
   
   console.log(todos);
   if (todos==null) {
+    // case when email not found
     res.status(600).json("email not found").end();    
   }
   else if(todos!=null){
     if (todos.password==req.query.password) {
-    // if (true) {
+    //when password matches
+    console.log(todos);
+todos.password = undefined;
     res.json(todos).end();    
     }
     else {
+      // when not matched
       res.status(700).json("not matched").end();    
     }   
   }
