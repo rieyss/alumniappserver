@@ -1,0 +1,10 @@
+201			findbyIdandUodate		signup complete
+
+600			find 					signup partial	if email already exists
+
+LOGIN
+200			ok 						password matched and response sending
+
+600			email not found
+
+700			password mismatch

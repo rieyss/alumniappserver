@@ -68,7 +68,7 @@ router.post('/signup/complete', function(req, res, next) {
 }); // end of router
 
 
-
+// getting the list of all the data in db
 router.get('/', function(req, res, next){
   signupschema.find({},{ _id:1, name:1, year :1, isNerd:1, designation:1, work:1 },function (err, todos) {
     if (err) return next(err);
@@ -79,10 +79,13 @@ router.get('/', function(req, res, next){
   });
 });
 
+// login router
 router.post('/login', function(req, res, next) {
   console.log(req.query);
   
   signupschema.findOne({email:req.query.email},{_id:1, password:1, name:1},function(err, todos){
+        if (err) return next(err);
+
   
   console.log(todos);
   if (todos==null) {
@@ -91,9 +94,8 @@ router.post('/login', function(req, res, next) {
   }
   else if(todos!=null){
     if (todos.password==req.query.password) {
-    //when password matches
-    console.log(todos);
-todos.password = undefined;
+    //when password    matches
+    todos.password = undefined
     res.json(todos).end();    
     }
     else {
@@ -103,7 +105,22 @@ todos.password = undefined;
   }
   
   });
+});
 
+router.post('/profile', function(req, res, next){
+  signupschema.findById(req.query._id, {password:0},function(err, todos){
+        if (err) return next(err);
+
+    res.send(todos);
+  });
+});
+
+router.post('/remaining-data', function(req, res, next){
+  signupschema.findById(req.query._id, {password:0, _id:0, name:0, year :0, isNerd:0, designation:0, work:0},function(err, todos){
+        if (err) return next(err);
+
+    res.send(todos);
+  });
 });
 
 module.exports = router;
