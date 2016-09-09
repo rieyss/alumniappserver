@@ -41,6 +41,7 @@ router.post('/signup/complete', function(req, res, next) {
 
   var memberschema = new signupschema({
     _id : req.query._id,
+    name : req.query.name,
     bio : req.query.bio,
     isNerd : req.query.isNerd,
     phone : req.query.phone,
@@ -70,7 +71,8 @@ router.post('/signup/complete', function(req, res, next) {
 
 // getting the list of all the data in db
 router.get('/', function(req, res, next){
-  signupschema.find({},{ _id:1, name:1, year :1, isNerd:1, designation:1, work:1 },function (err, todos) {
+  signupschema.find({"work":{$ne:null}},{ _id:1, name:1, year :1, isNerd:1, designation:1, work:1 },function (err, todos) {
+    
     if (err) return next(err);
 
     // returning in json format
