@@ -7,7 +7,7 @@ var JobListSchema = require('./JobListSchema');
 /* GET /todos listing. */
 router.get('/', function(req, res, next) {
 
-console.log('api hit for JobListSchema');
+console.log('api hit for JobList');
 	// Query from db
   JobListSchema.find({},{name:1, location:1 , role:1 , type:1},function (err, todos) {
     if (err) return next(err);
@@ -23,8 +23,6 @@ router.get('/detail/:id', function(req, res, next) {
 
   
 console.log('api hit for jobdetails');
-// console.log('request',req.params.id);
-// console.log('request id',req.id);
 	// Query from db
   JobListSchema.findById(req.params.id,{_id:0, kahani:1, contactweb:1 , contactemail:1, postedby:1, postedbyid:1 },function (err, todos) {
     if (err) return next(err);
@@ -36,6 +34,7 @@ console.log('api hit for jobdetails');
 
 });
 
+// api for posting a job
 router.post('/post', function(req, res, next){
   
   console.log('querry',req.query);

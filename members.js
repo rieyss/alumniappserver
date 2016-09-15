@@ -41,7 +41,7 @@ router.post('/signup/complete', function(req, res, next) {
 
   var memberschema = new signupschema({
     _id : req.query._id,
-    name : req.query.name,
+    name : req.query.name,  
     bio : req.query.bio,
     isNerd : req.query.isNerd,
     phone : req.query.phone,
@@ -51,9 +51,10 @@ router.post('/signup/complete', function(req, res, next) {
     home : req.query.home,
     work : req.query.work,
     designation : req.query.designation,
-    company : req.query.company
+    company : req.query.company,
+    fblink : req.query.fblink
     },{
-     versionKey: false // You should be aware of the outcome after set to false
+     versionKey: false 
   });
 
   var id = req.query._id;

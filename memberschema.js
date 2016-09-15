@@ -9,6 +9,7 @@ var signupschemapartial = new mongoose.Schema({
   bio : String,
   phone :  String,
   weblink : String,
+  fblink : String,
   branch : String,
   year : String,
   home : String,
