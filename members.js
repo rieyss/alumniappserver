@@ -89,17 +89,20 @@ router.get('/', function(req, res, next){
 // getting the list in back of 15 people
 router.post('/getlist', function(req, res, next){
 
-  signupschema.find({"work":{$ne:null}},{ _id:1, name:1, year :1, isNerd:1, designation:1, work:1 },function (err, todos) {
+  signupschema.find({"work":{$ne:null}},{ _id:1, name:1, year :1, isNerd:1, designation:1, work:1, time:1 },function (err, todos) {
   if (err) return next(err);
 
     // returning in json format
     var response = JSON.stringify({time:55,list : todos});
 
+    console.log(todos[todos.length-1].time);
+    var lastRecordTime = todos[todos.length-1].time;
+
 
     res.setHeader('Content-Type', 'application/json');
-    res.json({list:todos,time:555});
-}).limit(1);
-
+    res.json({list:todos,time:lastRecordTime});
+// }).limit(req.query.time);
+}).limit(15);
 });
 
 // login router
