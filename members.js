@@ -36,8 +36,9 @@ router.post('/signup/partial', function(req, res, next) {
 // signup complete
 router.post('/signup/complete', function(req, res, next) {
 
-  console.log('api hit for signup complete');
+  console.log('api hit for signup - request');
   console.log(req.query);
+  console.log(Date.now());
 
   var memberschema = new signupschema({
     _id : req.query._id,
@@ -52,7 +53,8 @@ router.post('/signup/complete', function(req, res, next) {
     work : req.query.work,
     designation : req.query.designation,
     company : req.query.company,
-    fblink : req.query.fblink
+    fblink : req.query.fblink,
+    time : Date.now(), 
     },{
      versionKey: false 
   });
@@ -62,7 +64,9 @@ router.post('/signup/complete', function(req, res, next) {
   signupschema.findByIdAndUpdate(id, memberschema, function(err, post){
     if (err) { return next(err)}
       res.status(201).json(true);
-  console.log(post);
+
+      console.log('api hit for signup - response');
+      console.log(post);
   }) ; // returns Query
 
   
@@ -80,6 +84,22 @@ router.get('/', function(req, res, next){
     res.json(todos);
 
   });
+});
+
+// getting the list in back of 15 people
+router.post('/getlist', function(req, res, next){
+
+  signupschema.find({"work":{$ne:null}},{ _id:1, name:1, year :1, isNerd:1, designation:1, work:1 },function (err, todos) {
+  if (err) return next(err);
+
+    // returning in json format
+    var response = JSON.stringify({time:55,list : todos});
+
+
+    res.setHeader('Content-Type', 'application/json');
+    res.json({list:todos,time:555});
+}).limit(1);
+
 });
 
 // login router

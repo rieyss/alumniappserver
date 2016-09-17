@@ -30,6 +30,7 @@ var im = require('imagemagick');
 
 // Post files
 app.post('/upload', multipartMiddleware, function(req, res) {
+  console.log(req.files);
   fs.readFile(req.files.image.path, function (err, data) {
     var imageName = req.files.image.name
     /// If there's an error
