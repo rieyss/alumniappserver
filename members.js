@@ -89,7 +89,7 @@ router.get('/', function(req, res, next){
 // getting the list in back of 15 people
 router.post('/getlist', function(req, res, next){
 
-  signupschema.find({"work":{$ne:null}},{ _id:1, name:1, year :1, isNerd:1, designation:1, work:1, time:1 },function (err, todos) {
+  signupschema.find({"work":{$ne:null},"time":{$gt:req.query.time}},{ _id:1, name:1, year :1, isNerd:1, designation:1, work:1, time:1 },function (err, todos) {
   if (err) return next(err);
 
     // returning in json format
