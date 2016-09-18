@@ -16,7 +16,7 @@ var signupschemapartial = new mongoose.Schema({
   work : String,
   designation: String,
   company : String,
-  time : {type:Number},
+  time : {type:Date, default : Date.now},
 },{
     versionKey: false // You should be aware of the outcome after set to false
 });

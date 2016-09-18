@@ -89,20 +89,32 @@ router.get('/', function(req, res, next){
 // getting the list in back of 15 people
 router.post('/getlist', function(req, res, next){
 
-  signupschema.find({"work":{$ne:null},"time":{$gt:req.query.time}},{ _id:1, name:1, year :1, isNerd:1, designation:1, work:1, time:1 },function (err, todos) {
+  console.log(req.query.time);
+  var reqTime = req.query.time;
+  var m =  new Date(reqTime);
+
+  signupschema.find({"work":{$ne:null},"time" : { $gt: reqTime}},{ _id:1, name:1, year :1, isNerd:1, designation:1, work:1, time:1 },function (err, todos) {
   if (err) return next(err);
 
-    // returning in json format
-    var response = JSON.stringify({time:55,list : todos});
 
-    console.log(todos[todos.length-1].time);
-    var lastRecordTime = todos[todos.length-1].time;
+    // returning in json format
+    
+
+    if (todos[todos.length-1] != undefined) {
+
+      var lastRecordTime = todos[todos.length-1].time;
+
+    }
+    else{
+      var lastRecordTime = 99;
+    }
 
 
     res.setHeader('Content-Type', 'application/json');
     res.json({list:todos,time:lastRecordTime});
-// }).limit(req.query.time);
-}).limit(15);
+
+
+}).limit(2);
 });
 
 // login router
