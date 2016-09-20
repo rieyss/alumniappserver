@@ -6,7 +6,7 @@ var signupschema = require('./memberschema');
 
 // middleware that is specific to this router
 router.use(function timeLog(req, res, next) {
-  console.log('Time: ', Date.now());
+  // console.log('Time: ', Date.now());
   next();
 });
 // for partial signup routing
@@ -76,6 +76,9 @@ router.post('/signup/complete', function(req, res, next) {
 
 // getting the list of all the data in db
 router.get('/', function(req, res, next){
+
+  console.log("For complete data");
+
   signupschema.find({"work":{$ne:null}},{ _id:1, name:1, year :1, isNerd:1, designation:1, work:1 },function (err, todos) {
     
     if (err) return next(err);
@@ -89,7 +92,8 @@ router.get('/', function(req, res, next){
 // getting the list in back of 15 people
 router.post('/getlist', function(req, res, next){
 
-  console.log(req.query.time);
+  console.log("For data in a packet");
+
   var reqTime = req.query.time;
   var m =  new Date(reqTime);
 
@@ -109,6 +113,10 @@ router.post('/getlist', function(req, res, next){
       var lastRecordTime = 99;
     }
 
+    for (var i = todos.length - 1; i >= 0; i--) {
+      todos[i].time = undefined;
+    }
+
 
     res.setHeader('Content-Type', 'application/json');
     res.json({list:todos,time:lastRecordTime});
@@ -119,7 +127,8 @@ router.post('/getlist', function(req, res, next){
 
 // login router
 router.post('/login', function(req, res, next) {
-  console.log(req.query);
+  console.log("For login");
+  // console.log(req.query);
   
   signupschema.findOne({email:req.query.email},{_id:1, password:1, name:1},function(err, todos){
         if (err) return next(err);
@@ -128,6 +137,7 @@ router.post('/login', function(req, res, next) {
   console.log(todos);
   if (todos==null) {
     // case when email not found
+    console.log("email not found");
     res.status(600).json("email not found").end();    
   }
   else if(todos!=null){
@@ -138,6 +148,7 @@ router.post('/login', function(req, res, next) {
     }
     else {
       // when not matched
+      console.log("password not matched");
       res.status(700).json("not matched").end();    
     }   
   }
@@ -146,6 +157,9 @@ router.post('/login', function(req, res, next) {
 });
 
 router.post('/profile', function(req, res, next){
+
+  console.log("For getting complete profile");
+
   signupschema.findById(req.query._id, {password:0},function(err, todos){
         if (err) return next(err);
 
@@ -154,6 +168,8 @@ router.post('/profile', function(req, res, next){
 });
 
 router.post('/remaining-data', function(req, res, next){
+        console.log("fot getting remaining-data on recycler view clicked");
+
   signupschema.findById(req.query._id, {password:0, _id:0, name:0, year :0, isNerd:0, designation:0, work:0},function(err, todos){
         if (err) return next(err);
 
