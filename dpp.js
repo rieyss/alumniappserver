@@ -30,9 +30,9 @@ var im = require('imagemagick');
 
 // Post files
 app.post('/upload', multipartMiddleware, function(req, res) {
-  console.log(req.files);
-  fs.readFile(req.files.image.path, function (err, data) {
-    var imageName = req.files.image.name
+  console.log(req);
+  fs.readFile(req.files.picture.path, function (err, data) {
+    var imageName = req.files.picture.name
     /// If there's an error
     if(!imageName){
       console.log("There was an error")
@@ -47,12 +47,14 @@ app.post('/upload', multipartMiddleware, function(req, res) {
         im.resize({
           srcPath: newPath,
           dstPath: thumbPath,
-          width:   200
+          width:   150
         }, function(err, stdout, stderr){
           if (err) throw err;
           console.log('resized image to fit within 200x200px');
         });
-         res.redirect("/uploads/fullsize/" + imageName);
+         // res.redirect("/uploads/fullsize/" + imageName);
+               res.status(200).json(true).end();
+
       });
     }
   });
@@ -72,5 +74,5 @@ app.get('/uploads/thumbs/:file', function (req, res){
   res.writeHead(200, {'Content-Type': 'image/jpg' });
   res.end(img, 'binary');
 });
-
-app.listen(8080);
+1
+app.listen(3000);
