@@ -12,8 +12,8 @@ app.use(bodyParser.urlencoded());
 
 
 var form = "<!DOCTYPE HTML><html><body>" +
-"<form method='post' action='/upload' enctype='multipart/form-data'>" +
-"<input type='file' name='image'/>" +
+"<form method='post' action='/upload/image' enctype='multipart/form-data'>" +
+"<input type='file' name='picture'/>" +
 "<input type='submit' /></form>" +
 "</body></html>";
 
@@ -29,8 +29,8 @@ var fs = require('fs');
 var im = require('imagemagick');
 
 // Post files
-app.post('/upload', multipartMiddleware, function(req, res) {
-  console.log(req);
+app.post('/image', multipartMiddleware, function(req, res) {
+  console.log(req.picture);
   fs.readFile(req.files.picture.path, function (err, data) {
     var imageName = req.files.picture.name
     /// If there's an error
@@ -75,4 +75,5 @@ app.get('/uploads/thumbs/:file', function (req, res){
   res.end(img, 'binary');
 });
 1
-app.listen(3000);
+// app.listen(3000);
+module.exports = app;

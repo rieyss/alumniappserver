@@ -6,6 +6,7 @@ var mongoose = require('mongoose');
 var router = require('./routes');
 var jobroutes = require('./jobs');
 var memberroutes = require('./members');
+var upload = require('./dpp');
 
 
 mongoose.Promise = global.Promise;
@@ -22,6 +23,8 @@ mongoose.connect('mongodb://localhost/alumni', function(err) {
 app.use('/routes', router);
 app.use('/jobs', jobroutes);
 app.use('/members', memberroutes);
+
+app.use('/upload',upload)
 
 app.listen(3000, function () {
 	console.log('Example app running on  3000')
