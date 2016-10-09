@@ -9,7 +9,8 @@ var JobListSchema = new mongoose.Schema({
   contactweb: String,
   type : String,
   postedby : String,
-  postedbyid : String
+  postedbyid : String,
+  imagepath : String
 },{
     versionKey: false // You should be aware of the outcome after set to false
 });

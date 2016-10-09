@@ -130,7 +130,7 @@ router.post('/login', function(req, res, next) {
   console.log("For login");
   // console.log(req.query);
   
-  signupschema.findOne({email:req.query.email},{_id:1, password:1, name:1},function(err, todos){
+  signupschema.findOne({email:req.query.email,work:{$ne : null}},{_id:1, password:1, name:1},function(err, todos){
         if (err) return next(err);
 
   

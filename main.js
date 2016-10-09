@@ -6,7 +6,7 @@ var mongoose = require('mongoose');
 var router = require('./routes');
 var jobroutes = require('./jobs');
 var memberroutes = require('./members');
-var upload = require('./dpp');
+var upload = require('./upload');
 
 
 mongoose.Promise = global.Promise;
