@@ -122,7 +122,7 @@ router.post('/getlist', function(req, res, next){
     res.json({list:todos,time:lastRecordTime});
 
 
-}).limit(2);
+}).limit(15);
 });
 
 // login router
