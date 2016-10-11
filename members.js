@@ -17,7 +17,8 @@ router.post('/signup/partial', function(req, res, next) {
   var memberschema = new signupschema({
     name : req.query.name,
     email : req.query.email,
-    password : req.query.password
+    password : req.query.password,
+    time : Date.now()
     },{
      versionKey: false // You should be aware of the outcome after set to false
   });
@@ -53,8 +54,7 @@ router.post('/signup/complete', function(req, res, next) {
     work : req.query.work,
     designation : req.query.designation,
     company : req.query.company,
-    fblink : req.query.fblink,
-    time : Date.now(), 
+    fblink : req.query.fblink
     },{
      versionKey: false 
   });
