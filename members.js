@@ -130,7 +130,7 @@ router.post('/login', function(req, res, next) {
   console.log("For login");
   // console.log(req.query);
   
-  signupschema.findOne({email:req.query.email,work:{$ne : null}},{_id:1, password:1, name:1},function(err, todos){
+  signupschema.findOne({email:req.query.email},{_id:1, password:1, name:1, work : 1},function(err, todos){
         if (err) return next(err);
 
   
@@ -143,8 +143,14 @@ router.post('/login', function(req, res, next) {
   else if(todos!=null){
     if (todos.password==req.query.password) {
     //when password    matches
-    todos.password = undefined
+    todos.password = undefined;
+    if (todos.work != null) {
+      todos.work = undefined;
     res.json(todos).end();    
+    }
+    else {
+     res.status(800).json(todos).end();     
+    }
     }
     else {
       // when not matched
