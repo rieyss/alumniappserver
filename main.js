@@ -7,6 +7,7 @@ var router = require('./routes');
 var jobroutes = require('./jobs');
 var memberroutes = require('./members');
 var upload = require('./upload');
+var mailer = require('./mailer.js')
 
 
 mongoose.Promise = global.Promise;
@@ -20,9 +21,11 @@ mongoose.connect('mongodb://localhost/alumni', function(err) {
     }
 });
 
+// useless sort of thing - router
 app.use('/routes', router);
 app.use('/jobs', jobroutes);
 app.use('/members', memberroutes);
+app.use('/mail', mailer);
 
 app.use('/upload',upload)
 

@@ -30,7 +30,7 @@ var im = require('imagemagick');
 
 // Post files
 app.post('/image', multipartMiddleware, function(req, res) {
-  console.log(req.picture);
+  console.log(req.files);
   fs.readFile(req.files.picture.path, function (err, data) {
     var imageName = req.files.picture.name
     /// If there's an error
@@ -95,16 +95,35 @@ app.post('/job', multipartMiddleware, function(req, res) {
 // Show files
 app.get('/uploads/fullsize/:file', function (req, res){
   file = req.params.file;
-  var img = fs.readFileSync(__dirname + "/uploads/fullsize/" + file);
-  res.writeHead(200, {'Content-Type': 'image/jpg' });
-  res.end(img, 'binary');
+  try{
+    var img = fs.readFileSync(__dirname + "/uploads/fullsize/" + file);
+    res.writeHead(200, {'Content-Type': 'image/jpg' });
+    res.end(img, 'binary');
+  }
+  catch (err){
+    if (err.code = "ENOENT" ) {
+      console.log("404 file not found at" + err.path);
+    }
+    res.status(404).json("404 " + err.path).end();
+  }
+  
 });
 
 app.get('/uploads/thumbs/:file', function (req, res){
   file = req.params.file;
-  var img = fs.readFileSync(__dirname + "/uploads/thumbs/" + file);
-  res.writeHead(200, {'Content-Type': 'image/jpg' });
-  res.end(img, 'binary');
+  
+  try{
+    var img = fs.readFileSync(__dirname + "/uploads/thumbs/" + file);
+    res.writeHead(200, {'Content-Type': 'image/jpg' });
+    res.end(img, 'binary');
+  }
+  catch (err){
+    if (err.code = "ENOENT" ) {
+      console.log("404 file not found at" + err.path);
+    }
+    res.status(404).json("404 " + err.path).end();
+  
+  }
 });
 1
 // app.listen(3000);

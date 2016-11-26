@@ -9,7 +9,7 @@ router.get('/', function(req, res, next) {
 
 console.log('api hit for JobList');
 	// Query from db
-  JobListSchema.find({},{name:1, location:1 , role:1 , type:1, imagepath:1},function (err, todos) {
+  JobListSchema.find({},{name:1, location:1 , role:1 , postedbyid:1},function (err, todos) {
     if (err) return next(err);
 
     // returning in json format
@@ -41,16 +41,16 @@ router.post('/post', function(req, res, next){
   console.log('api hit for jobPost');
 
   var post = new JobListSchema({
-    name      : req.query.name,
-    kahani    : req.query.kahani,
-    location  : req.query.location,
-    role      : req.query.role,
+    name        : req.query.name,
+    kahani      : req.query.kahani,
+    location    : req.query.location,
+    role        : req.query.role,
     contactemail: req.query.contactemail,
-    contactweb: req.query.contactweb,
-    postedby  : req.query.postedby,
-    postedbyid: req.query.postedbyid,
-    type      : req.query.type,
-    imagepath : req.query.imagepath
+    contactweb  : req.query.contactweb,
+    postedby    : req.query.postedby,
+    postedbyid  : req.query.postedbyid,
+    type        : req.query.type,
+    imagepath   : req.query.imagepath
   })
   post.save(function (err, post) {
    if (err) { return next(err) }
